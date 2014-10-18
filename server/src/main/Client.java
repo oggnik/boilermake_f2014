@@ -72,12 +72,18 @@ public class Client extends Thread {
 	 */
 	public void setLocatorSession(LocatorSession loc) {
 		locatorSession = loc;
+		if (loc == null) {
+			server.addClientToAvailable(this);
+		}
 	}
 	
 	/**
 	 * Close down communication
 	 */
 	public void closeSocket() {
+		if (locatorSession != null) {
+			locatorSession.disconnect(this);
+		}
 		server.removeClient(this);
 		if (out != null) {
 			out.close();
