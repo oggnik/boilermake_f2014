@@ -53,21 +53,7 @@ public class Server extends Thread {
 	 */
 	public void addClient(Client client) {
 		clients.add(client);
-		availableClients.add(client);
-		System.out.println("Client added.");
-		System.out.println("\tTotal clients: " + clients.size());
-		System.out.println("\tAvailable clients: " + availableClients.size());
-		System.out.println("\tSessions: " + sessions.size());
-		
-		if (availableClients.size() == 2) {
-			System.out.println("Starting session");
-			Client client1 = availableClients.remove(0);
-			Client client2 = availableClients.remove(0);
-			LocatorSession locSes = new LocatorSession(this, client1, client2);
-			client1.setLocatorSession(locSes);
-			client2.setLocatorSession(locSes);
-			sessions.add(locSes);
-		}
+		addClientToAvailable(client);
 	}
 	
 	/**
@@ -107,6 +93,21 @@ public class Server extends Thread {
 	public void addClientToAvailable(Client client) {
 		if (!availableClients.contains(client) && clients.contains(client)) {
 			availableClients.add(client);
+		}
+		availableClients.add(client);
+		System.out.println("Client added.");
+		System.out.println("\tTotal clients: " + clients.size());
+		System.out.println("\tAvailable clients: " + availableClients.size());
+		System.out.println("\tSessions: " + sessions.size());
+		
+		if (availableClients.size() == 2) {
+			System.out.println("Starting session");
+			Client client1 = availableClients.remove(0);
+			Client client2 = availableClients.remove(0);
+			LocatorSession locSes = new LocatorSession(this, client1, client2);
+			client1.setLocatorSession(locSes);
+			client2.setLocatorSession(locSes);
+			sessions.add(locSes);
 		}
 	}
 	
