@@ -1,14 +1,18 @@
 package main;
 
+import gps.GPSMath;
+
 public class LocatorSession {
 	private Client client1;
 	private Client client2;
 	private Server server;
+	private GPSMath gpsMath;
 	
 	public LocatorSession(Server server, Client client1, Client client2) {
 		this.server = server;
 		this.client1 = client1;
 		this.client2 = client2;
+		this.gpsMath = new GPSMath();
 	}
 	
 	/**
@@ -20,8 +24,18 @@ public class LocatorSession {
 		System.out.println("Location received from client: " + c);
 		System.out.println("\t" + location[0] + ", " + location[1]);
 		// Calculate distance + angle for each client
-		client1.sendMessage("hullo");
-		client2.sendMessage("hmm");
+		if (c == client1) {
+			gpsMath.setLocation2(location[0], location[1]);
+		} else {
+			gpsMath.setLocation1(location[0], location[1]);
+		}
+		
+		double distance = gpsMath.getDistance();
+		double client1Angle = gpsMath.getAngle12();
+		double client2Angle = gpsMath.getAngle21();
+		
+		client1.sendMessage(distance + "," + client1Angle);
+		client2.sendMessage(distance + "," + client2Angle);
 	}
 	
 	/**

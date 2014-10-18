@@ -1,4 +1,4 @@
-package test;
+package gps;
 
 public class GPSTest {
 	
