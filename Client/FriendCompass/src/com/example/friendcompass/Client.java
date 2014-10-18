@@ -54,8 +54,7 @@ public class Client extends Thread {
 	 */
 	private void handleMessage(String message) {
 		// Display the message
-		TextView tv = (TextView)cActivity.findViewById(R.id.distanceLabel);
-		tv.setText(message);
+		cActivity.runOnUiThread(new UIUpdater(cActivity, message));
 	}
 	
 	/**
