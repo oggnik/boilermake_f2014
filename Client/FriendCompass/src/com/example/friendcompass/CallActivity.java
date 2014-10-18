@@ -1,16 +1,44 @@
 package com.example.friendcompass;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ImageView;
 
 public class CallActivity extends Activity {
 	private Client client;
+	private double angletonorth;
+	double orientation;
+	public ImageView image;
+	
+	public double getAngletonorth() {
+		return angletonorth;
+	}
+	
+	public ImageView getImageView() {
+		return image;
+	}
+
+	public void setAngletonorth(double angletonorth) {
+		this.angletonorth = angletonorth;
+	}
+
+	public double getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(double orientation) {
+		this.orientation = orientation;
+	}
+
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
+        image = (ImageView) findViewById(R.id.imageView1);
     }
     
     protected void onResume(){
