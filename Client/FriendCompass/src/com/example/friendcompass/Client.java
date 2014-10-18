@@ -72,13 +72,16 @@ public class Client extends Thread {
 	 * Close down communication
 	 */
 	public void closeSocket() {
-		if (socket == null) {
-			return;
+		if (out != null) {
+			out.close();
 		}
-		out.close();
-		in.close();
+		if (in != null) {
+			in.close();
+		}
 		try {
-			socket.close();
+			if (socket != null) {
+				socket.close();
+			}
 			socket = null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
