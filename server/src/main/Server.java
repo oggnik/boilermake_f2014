@@ -52,6 +52,7 @@ public class Server extends Thread {
 	public void addClient(Client client) {
 		clients.add(client);
 		availableClients.add(client);
+		System.out.println("Client added.  Total clients: " + clients.size());
 		
 		if (availableClients.size() == 2) {
 			System.out.println("Starting session");
@@ -85,5 +86,6 @@ public class Server extends Thread {
 	public void removeClient(Client client) {
 		clients.remove(client);
 		availableClients.remove(client);
+		System.out.println("Client removed.  Total clients: " + clients.size());
 	}
 }

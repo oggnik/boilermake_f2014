@@ -19,6 +19,12 @@ public class CallActivity extends Activity {
     		client = new Client(this);
     		client.start();
     	}
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	client.sendMessage("100,30");
     }
 
