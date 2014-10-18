@@ -21,8 +21,8 @@ public class UIUpdater implements Runnable {
 		tv.setText(message);
 		RotateAnimation r = new RotateAnimation((float) cActivity.getAngletonorth(),
 				(float) (cActivity.getAngletonorth() + 10), 
-				(float) cActivity.getImageView().getLeft() + 75, 
-				(float) (cActivity.getImageView().getBottom() - 75));
+				(float) cActivity.getImageView().getLeft() + cActivity.getImageView().getWidth()/2, 
+				(float) (cActivity.getImageView().getBottom() - cActivity.getImageView().getHeight()/2));
 		cActivity.setAngletonorth((float) cActivity.getAngletonorth() + 10);
 		cActivity.getImageView().startAnimation(r);
 		
