@@ -55,9 +55,9 @@ public class Server extends Thread {
 		clients.add(client);
 		availableClients.add(client);
 		System.out.println("Client added.");
-		System.out.println("Total clients: " + clients.size());
-		System.out.println("Available clients: " + availableClients.size());
-		System.out.println("Sessions: " + sessions.size());
+		System.out.println("\tTotal clients: " + clients.size());
+		System.out.println("\tAvailable clients: " + availableClients.size());
+		System.out.println("\tSessions: " + sessions.size());
 		
 		if (availableClients.size() == 2) {
 			System.out.println("Starting session");
@@ -83,6 +83,7 @@ public class Server extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.exit(1);
 	}
 	
 	/**
@@ -93,9 +94,9 @@ public class Server extends Thread {
 		clients.remove(client);
 		availableClients.remove(client);
 		System.out.println("Client remove.");
-		System.out.println("Total clients: " + clients.size());
-		System.out.println("Available clients: " + availableClients.size());
-		System.out.println("Sessions: " + sessions.size());
+		System.out.println("\tTotal clients: " + clients.size());
+		System.out.println("\tAvailable clients: " + availableClients.size());
+		System.out.println("\tSessions: " + sessions.size());
 	}
 	
 	/**
