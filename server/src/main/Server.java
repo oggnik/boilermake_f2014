@@ -112,6 +112,8 @@ public class Server extends Thread {
 	}
 	
 	public void removeLocatorSession(LocatorSession locSes) {
+		System.out.println("Session removed");
 		sessions.remove(locSes);
+		System.out.println("\tSessions: " + sessions.size());
 	}
 }
