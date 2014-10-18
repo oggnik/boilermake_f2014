@@ -1,3 +1,0 @@
-INDEX VERSION 1.126+C:\Matthew\BoilerMake F-2014\boilermake_f2014\Client\.metadata\.plugins\org.eclipse.jdt.core
-496789801.index
-1653739779.index
