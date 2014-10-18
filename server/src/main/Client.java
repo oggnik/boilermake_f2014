@@ -47,6 +47,14 @@ public class Client extends Thread {
 	}
 	
 	/**
+	 * Send a message to the connected client
+	 * @param message
+	 */
+	public void sendMessage(String message) {
+		out.println(message);
+	}
+	
+	/**
 	 * Close down communication
 	 */
 	public void closeSocket() {
