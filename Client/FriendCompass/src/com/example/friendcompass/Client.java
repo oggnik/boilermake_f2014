@@ -6,13 +6,14 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Client extends Thread {
+	private CallActivity cActivity;
 	private Socket socket;
 	
 	private PrintWriter out = null;
 	private Scanner in = null;
 	
-	public Client(Socket sock) {
-		socket = sock;
+	public Client(CallActivity cActivity) {
+		this.cActivity = cActivity;
 	}
 	
 	/**
@@ -20,6 +21,7 @@ public class Client extends Thread {
 	 */
 	public void run() {
 		try {
+			socket = new Socket(Definitions.SERVER_IP, Definitions.SERVER_PORT);
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new Scanner(socket.getInputStream());
 		} catch (IOException e) {
