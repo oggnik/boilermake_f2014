@@ -3,12 +3,13 @@ package com.example.friendcompass;
 import android.graphics.Matrix;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 
-public class UIUpdater implements Runnable {
+public class UIUpdater implements Runnable, SensorEventListener{
 	private String message;
 	private CallActivity cActivity;
 	
@@ -68,6 +69,12 @@ public class UIUpdater implements Runnable {
 	    		cActivity.setAngletonorth((cActivity.getAngletonorth() - rotation + 360) % 360);
 	        }
 	    }
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
