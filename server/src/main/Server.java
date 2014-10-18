@@ -49,10 +49,6 @@ public class Server extends Thread {
 	public void stopServer() {
 		System.out.println("Server shutting down");
 		listening = false;
-		for (Client c : clients) {
-			System.out.println("Closing client");
-			c.closeSocket();
-		}
 		try {
 			System.out.println("Closing socket");
 			serverSocket.close();

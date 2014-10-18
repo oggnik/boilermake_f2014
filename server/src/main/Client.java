@@ -35,6 +35,7 @@ public class Client extends Thread {
 			inputLine = in.nextLine();
 			handleMessage(inputLine);
 		}
+		closeSocket();
 	}
 	
 	/**
