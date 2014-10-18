@@ -35,7 +35,7 @@ public class Server extends Thread {
 			Client client;
 			try {
 				client = new Client(this, serverSocket.accept());
-				System.out.println("Client connected.");
+				System.out.println("Client connected: " + client);
 				client.start();
 			} catch (IOException e) {
 				if (listening) {

@@ -94,4 +94,8 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	public String toString() {
+		return "Client " + socket.getRemoteSocketAddress();
+	}
 }
