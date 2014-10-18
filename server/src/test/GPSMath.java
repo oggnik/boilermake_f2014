@@ -26,15 +26,6 @@ public class GPSMath {
 		return 1;
 	}
 	
-	public double[] hat(double[] vector){
-		double[] unitvec = new double[2];
-		double mag;
-		mag = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0));
-		unitvec[0] = vector[0]/mag;
-		unitvec[1] = vector[1]/mag;
-		return unitvec;
-	}	
-	
 	public double getDistance(){
 		/* Original distance method: Terrible
 		 * double pa, po;
@@ -55,16 +46,26 @@ public class GPSMath {
 		return d;
 	}
 	
+	public double[] hat(double[] vector){
+		double[] unitvec = new double[2];
+		double mag;
+		mag = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0));
+		unitvec[0] = vector[0]/mag;
+		unitvec[1] = vector[1]/mag;
+		return unitvec;
+	}	
+	
 	public double dotAngle(double[] a, double[] b){
-		double dot, L1, L2, product;
+		double dot;
 		a = hat(a);
 		b = hat(b);
+		//System.out.println("a "+a[0]+", "+a[1]+" b "+b[0]+", "+b[1]);
 		dot = a[0]*b[0]+a[1]*b[1];
 		//L1 = Math.sqrt(Math.pow(a[0], 2.0)+Math.pow(a[1], 2.0));
 		//L2 = Math.sqrt(Math.pow(b[0], 2.0)+Math.pow(b[1], 2.0));
 		//System.out.println(L1+"  "+L2);
 		//product = dot / L1 / L2;
-		return Math.toDegrees(Math.acos(Math.toRadians(dot)));
+		return Math.toDegrees(Math.acos(dot));
 	}
 	
 	public double[] getR1(){ //from 1 to 2
@@ -90,26 +91,24 @@ public class GPSMath {
 		Rdir = (int) (R1[1]/ Math.abs(R1[1]));
 			//System.out.println("Lodir 1: "+ Lodir); //debugging
 			//System.out.println("Rdir 1: "+ Rdir ); //debugging
-		if(Lodir == Rdir ){
-			orientation = dotAngle(unit, R1);
-		}
-		else if(Lodir == -1*Rdir){
-			orientation = 360 - dotAngle(unit, R1);
+		orientation = dotAngle(unit, R1);
+		if(location1[1]>0){
+			if(Lodir == Rdir ){
+				orientation = dotAngle(unit, R1);
+			}
+			else if(Lodir == -1*Rdir){
+				orientation = 360 - dotAngle(unit, R1);
+			}
 		}
 		else{
-			//R1 directly N or S
-			if (R1[0]>0.0){ //R1 points N
-				orientation = 0.0;
+			if(Lodir == -1*Rdir ){
+				orientation = dotAngle(unit, R1);
 			}
-			else if (R1[0]<0.0){ //R2 points S
-				orientation = 180.0;
-			}
-			else{
-				// R1 is zero vector
-				System.out.println("ERROR" );
-				orientation = 0.0;
+			else if(Lodir == Rdir){
+				orientation = 360 - dotAngle(unit, R1);
 			}
 		}
+		
 		return orientation;
 	}
 	
@@ -122,26 +121,24 @@ public class GPSMath {
 		Rdir = (int) (R2[1]/ Math.abs(R2[1]));
 			//System.out.println("Lodir 1: "+ Lodir); //debugging
 			//System.out.println("Rdir 1: "+ Rdir ); //debugging
-		if(Lodir == Rdir ){
-			orientation = dotAngle(unit, R2);
-		}
-		else if(Lodir == -1*Rdir){
-			orientation = 360 - dotAngle(unit, R2);
+		orientation = dotAngle(unit, R2);
+		if (location2[1]>0){
+			if(Lodir == Rdir ){
+				orientation = dotAngle(unit, R2);
+			}
+			else if(Lodir == -1*Rdir){
+				orientation = 360 - dotAngle(unit, R2);
+			}
 		}
 		else{
-			//R2 directly N or S
-			if (R2[0]>0.0){ //R2 points N
-				orientation = 0.0;
+			if(Lodir == -1*Rdir ){
+				orientation = dotAngle(unit, R2);
 			}
-			else if (R2[0]<0.0){ //R2 points S
-				orientation = 180.0;
-			}
-			else{
-				// R2 is zero vector
-				System.out.println("ERROR" );
-				orientation = 0.0;
+			else if(Lodir == Rdir){
+				orientation = 360 - dotAngle(unit, R2);
 			}
 		}
+		
 		return orientation;
 	}
 }
