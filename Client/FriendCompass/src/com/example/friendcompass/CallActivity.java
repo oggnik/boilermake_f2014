@@ -40,6 +40,7 @@ public class CallActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
         image = (ImageView) findViewById(R.id.imageView1);
+        setAngletonorth((float) 0);
     }
     
     protected void onResume(){
