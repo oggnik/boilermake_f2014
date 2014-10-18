@@ -78,6 +78,7 @@ public class Client extends Thread {
 	 * Close down communication
 	 */
 	public void closeSocket() {
+		server.removeClient(this);
 		if (out != null) {
 			out.close();
 		}
