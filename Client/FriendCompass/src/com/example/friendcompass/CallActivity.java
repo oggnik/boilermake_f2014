@@ -19,7 +19,7 @@ public class CallActivity extends Activity {
     		client = new Client(this);
     		client.start();
     	}
-    	client.sendMessage("hi");
+    	client.sendMessage("100,30");
     }
 
 

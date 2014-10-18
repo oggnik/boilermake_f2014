@@ -54,6 +54,7 @@ public class Server extends Thread {
 		availableClients.add(client);
 		
 		if (availableClients.size() == 2) {
+			System.out.println("Starting session");
 			Client client1 = availableClients.remove(0);
 			Client client2 = availableClients.remove(0);
 			LocatorSession locSes = new LocatorSession(client1, client2);
