@@ -64,7 +64,7 @@ public class CallActivity extends Activity {
     		public void onLocationChanged(Location location) {
     			// Called when a new location is found by the network location
     			// provider.
-    			client.sendMessage("100,30");
+    			client.sendMessage(location.getLatitude() + "," + location.getLongitude());
     		}
 
     		@Override
