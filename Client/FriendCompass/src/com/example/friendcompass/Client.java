@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import android.widget.TextView;
+
 public class Client extends Thread {
 	private CallActivity cActivity;
 	private Socket socket;
@@ -23,12 +25,9 @@ public class Client extends Thread {
 	 */
 	public void run() {
 		try {
-			System.out.println("got here");
 			socket = new Socket(Definitions.SERVER_IP, Definitions.SERVER_PORT);
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new Scanner(socket.getInputStream());
-			System.out.println(socket);
-			System.out.println("got here 2");
 			connected = true;
 		} catch (IOException e) {
 			System.out.println(e);
@@ -55,7 +54,8 @@ public class Client extends Thread {
 	 */
 	private void handleMessage(String message) {
 		// Display the message
-		
+		TextView tv = (TextView)cActivity.findViewById(R.id.distanceLabel);
+		tv.setText(message);
 	}
 	
 	/**
@@ -63,8 +63,6 @@ public class Client extends Thread {
 	 * @param message
 	 */
 	public void sendMessage(String message) {
-		System.out.println(socket);
-		System.out.println(out);
 		out.println(message);
 	}
 	
