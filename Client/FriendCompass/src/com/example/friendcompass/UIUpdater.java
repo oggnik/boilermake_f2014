@@ -1,6 +1,9 @@
 package com.example.friendcompass;
 
 import android.graphics.Matrix;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorManager;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
@@ -33,6 +36,38 @@ public class UIUpdater implements Runnable {
 		cActivity.getImageView().setImageMatrix(matrix);
 		cActivity.setAngletonorth(cActivity.getAngletonorth() + 10);
 		
+	}
+	
+	public void onSensorChanged(SensorEvent event) {
+		float[] mGravity = null;
+		float[] mGeomagnetic = null;
+	    if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+	        mGravity = event.values;
+
+	    if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+	        mGeomagnetic = event.values;
+
+	    if (mGravity != null && mGeomagnetic != null) {
+	        float R[] = new float[9];
+	        float I[] = new float[9];
+
+	        if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic)) {
+
+	            // orientation contains azimut, pitch and roll
+	            float orientation[] = new float[3];
+	            SensorManager.getOrientation(R, orientation);
+
+	            float azimut = orientation[0];
+	            float rotation = -azimut * 360 / (2 * 3.14159f);
+	            Matrix matrix=new Matrix();
+	    		cActivity.getImageView().setScaleType(ScaleType.MATRIX);   //required
+	    		matrix.postRotate((float) cActivity.getAngletonorth() + 10, 
+	    				cActivity.getImageView().getDrawable().getBounds().width()/2, 
+	    				cActivity.getImageView().getDrawable().getBounds().height()/2);
+	    		cActivity.getImageView().setImageMatrix(matrix);
+	    		cActivity.setAngletonorth((cActivity.getAngletonorth() - rotation + 360) % 360);
+	        }
+	    }
 	}
 	
 	
