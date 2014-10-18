@@ -4,8 +4,8 @@ public class GPSTest {
 	
 	public static void main(String[] args){
 		GPSMath gpsMath = new GPSMath();
-		gpsMath.setLocation1(40.428123, -86.916911); //<Lattitude, Longitude>
-		gpsMath.setLocation2(40.432223, -86.916461);
+		gpsMath.setLocation1(40.427270, -86.916708); //<Lattitude, Longitude>
+		gpsMath.setLocation2(40.431394, -86.916638);
 		
 		System.out.println("\ndistance is  "+gpsMath.getDistance());
 		//System.out.println("\nR1  <" + gpsMath.getR1()[0] +", "+ gpsMath.getR1()[1]+">");
