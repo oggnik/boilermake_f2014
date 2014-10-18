@@ -2,3 +2,4 @@
 Client/.metadata/*
 Client/FriendCompass/bin/*
 Client/FriendCompass/project.properties
+Client/FriendCompass/gen/com/example/friendcompass/R.java
