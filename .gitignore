@@ -1,3 +1,4 @@
 *.class
 Client/.metadata/*
 Client/FriendCompass/bin/*
+Client/FriendCompass/project.properties
