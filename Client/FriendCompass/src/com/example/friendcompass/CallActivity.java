@@ -34,38 +34,6 @@ public class CallActivity extends Activity {
 	public void setOrientation(double orientation) {
 		this.orientation = orientation;
 	}
-
-	
-	
-	// Acquire a reference to the system Location Manager
-		LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
-
-		// Define a listener that responds to location updates
-		LocationListener locationListener = new LocationListener() {
-			public void onLocationChanged(Location location) {
-				// Called when a new location is found by the network location
-				// provider.
-				client.sendMessage("hi");
-			}
-
-			@Override
-			public void onProviderDisabled(String provider) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onProviderEnabled(String provider) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onStatusChanged(String provider, int status, Bundle extras) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +55,36 @@ public class CallActivity extends Activity {
 			e.printStackTrace();
 		}
     	client.sendMessage("100,30");
+    	
+    	// Acquire a reference to the system Location Manager
+    	LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+
+    	// Define a listener that responds to location updates
+    	LocationListener locationListener = new LocationListener() {
+    		public void onLocationChanged(Location location) {
+    			// Called when a new location is found by the network location
+    			// provider.
+    			client.sendMessage("100,30");
+    		}
+
+    		@Override
+    		public void onProviderDisabled(String provider) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+
+    		@Override
+    		public void onProviderEnabled(String provider) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+
+    		@Override
+    		public void onStatusChanged(String provider, int status, Bundle extras) {
+    			// TODO Auto-generated method stub
+    			
+    		}
+    	};
     }
 
 
