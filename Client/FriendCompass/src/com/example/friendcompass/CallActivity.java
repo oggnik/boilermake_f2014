@@ -5,11 +5,26 @@ import android.app.Activity;
 import android.view.Menu;
 
 public class CallActivity extends Activity {
-
+	private Client client;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
+    }
+    
+    protected void onResume(){
+    	super.onResume();
+    	client = new Client(this);
+        //System.out.println("hihi");
+        client.start();
+        try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	client.sendMessage("hi");
     }
 
 
@@ -18,6 +33,12 @@ public class CallActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.call, menu);
         return true;
+    }
+    
+    protected void onPause(){
+    	super.onPause();
+    	client.closeSocket();
+    	
     }
     
 }
