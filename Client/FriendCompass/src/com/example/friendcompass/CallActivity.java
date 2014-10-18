@@ -39,7 +39,7 @@ public class CallActivity extends Activity {
     protected void onPause(){
     	super.onPause();
     	client.closeSocket();
-    	
+    	System.out.println("close");
     }
     
 }

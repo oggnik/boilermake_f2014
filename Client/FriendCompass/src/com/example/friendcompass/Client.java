@@ -34,13 +34,19 @@ public class Client extends Thread {
 			System.out.println(e);
 			e.printStackTrace();
 		}
-		// Start reading from the client
-		String inputLine = null;
-		while (in.hasNextLine()) {
-			inputLine = in.nextLine();
-			handleMessage(inputLine);
+
+		try {
+			// Start reading from the client
+			String inputLine = null;
+			while (in.hasNextLine()) {
+				inputLine = in.nextLine();
+				handleMessage(inputLine);
+			}
+		} catch (IllegalStateException ise) {
+			// Socket closed, don't worry
 		}
 		connected = false;
+		closeSocket();
 	}
 	
 	/**

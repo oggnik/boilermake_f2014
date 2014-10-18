@@ -29,11 +29,15 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 		
-		// Start reading from the client
-		String inputLine = null;
-		while (in.hasNextLine()) {
-			inputLine = in.nextLine();
-			handleMessage(inputLine);
+		try {
+			// Start reading from the client
+			String inputLine = null;
+			while (in.hasNextLine()) {
+				inputLine = in.nextLine();
+				handleMessage(inputLine);
+			}
+		} catch (IllegalStateException ise) {
+			// Socket closed, don't worry
 		}
 		closeSocket();
 	}
