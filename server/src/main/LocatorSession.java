@@ -31,8 +31,8 @@ public class LocatorSession {
 		}
 		
 		double distance = gpsMath.getDistance();
-		double client1Angle = gpsMath.getAngle12();
-		double client2Angle = gpsMath.getAngle21();
+		double client1Angle = gpsMath.getAngle21();
+		double client2Angle = gpsMath.getAngle12();
 		
 		client1.sendMessage(distance + "," + client1Angle);
 		client2.sendMessage(distance + "," + client2Angle);
