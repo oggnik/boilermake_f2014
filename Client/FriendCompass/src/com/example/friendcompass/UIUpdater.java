@@ -13,11 +13,16 @@ import android.widget.TextView;
 public class UIUpdater implements Runnable, SensorEventListener{
 	private String message;
 	private CallActivity cActivity;
+	private double distance;
+	private double angle;
 	
 	
 	public UIUpdater(CallActivity cAct, String mes) {
 		cActivity = cAct;
 		message = mes;
+		String[] parts = mes.split(",");
+		distance = Double.parseDouble(parts[0]);
+		angle = Double.parseDouble(parts[1]);
 
 	}
 	
@@ -25,10 +30,10 @@ public class UIUpdater implements Runnable, SensorEventListener{
 		TextView tv = (TextView)cActivity.findViewById(R.id.distanceLabel);
 		tv.setText(message);
 		RotateAnimation r = new RotateAnimation((float) cActivity.getAngletonorth(),
-				(float) (cActivity.getAngletonorth() + 10), 
+				(float) angle, 
 				(float) cActivity.getImageView().getWidth()/2, 
 				(float) (cActivity.getImageView().getHeight()/2));
-		cActivity.setAngletonorth((float) cActivity.getAngletonorth() + 10);
+		cActivity.setAngletonorth((float) angle);
 		r.setRepeatCount(RotateAnimation.INFINITE);
 		cActivity.getImageView().startAnimation(r);
 		
