@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-import android.widget.TextView;
-
 public class Client extends Thread {
 	private CallActivity cActivity;
 	private Socket socket;
