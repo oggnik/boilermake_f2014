@@ -50,9 +50,11 @@ public class Server extends Thread {
 		System.out.println("Server shutting down");
 		listening = false;
 		for (Client c : clients) {
+			System.out.println("Closing client");
 			c.closeSocket();
 		}
 		try {
+			System.out.println("Closing socket");
 			serverSocket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
