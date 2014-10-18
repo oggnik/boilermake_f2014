@@ -58,10 +58,14 @@ public class Client extends Thread {
 	 * Close down communication
 	 */
 	public void closeSocket() {
+		if (socket == null) {
+			return;
+		}
 		out.close();
 		in.close();
 		try {
 			socket.close();
+			socket = null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
