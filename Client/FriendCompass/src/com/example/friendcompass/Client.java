@@ -14,12 +14,6 @@ public class Client extends Thread {
 	
 	public Client(CallActivity cActivity) {
 		this.cActivity = cActivity;
-	}
-	
-	/**
-	 * Start reading from the connection
-	 */
-	public void run() {
 		try {
 			System.out.println("got here");
 			socket = new Socket(Definitions.SERVER_IP, Definitions.SERVER_PORT);
@@ -31,7 +25,12 @@ public class Client extends Thread {
 			System.out.println(e);
 			e.printStackTrace();
 		}
-		
+	}
+	
+	/**
+	 * Start reading from the connection
+	 */
+	public void run() {
 		// Start reading from the client
 		String inputLine = null;
 		while (in.hasNextLine()) {

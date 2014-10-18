@@ -16,14 +16,7 @@ public class CallActivity extends Activity {
     protected void onResume(){
     	super.onResume();
     	client = new Client(this);
-        //System.out.println("hihi");
         client.start();
-        try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
     	client.sendMessage("hi");
     }
 
