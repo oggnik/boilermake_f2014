@@ -14,6 +14,8 @@ public class CallActivity extends Activity {
 	private double angletonorth;
 	double orientation;
 	public ImageView image;
+	private LocationManager locationManager;
+	private LocationListener locationListener;
 	
 	public double getAngletonorth() {
 		return angletonorth;
@@ -58,10 +60,10 @@ public class CallActivity extends Activity {
     	client.sendMessage("100,30");
     	
     	// Acquire a reference to the system Location Manager
-    	LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+    	locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
 
     	// Define a listener that responds to location updates
-    	LocationListener locationListener = new LocationListener() {
+    	locationListener = new LocationListener() {
     		public void onLocationChanged(Location location) {
     			// Called when a new location is found by the network location
     			// provider.
@@ -100,6 +102,7 @@ public class CallActivity extends Activity {
     protected void onPause(){
     	super.onPause();
     	client.closeSocket();
+    	locationManager.removeUpdates(locationListener);
     	System.out.println("close");
     }
     
