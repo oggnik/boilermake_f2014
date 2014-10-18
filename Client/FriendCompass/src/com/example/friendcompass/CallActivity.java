@@ -86,6 +86,7 @@ public class CallActivity extends Activity {
     			
     		}
     	};
+    	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
 
