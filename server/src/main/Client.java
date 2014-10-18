@@ -34,6 +34,7 @@ public class Client extends Thread {
 	 * Close down communication
 	 */
 	public void closeSocket() {
+		server.removeClient(this);
 		out.close();
 		in.close();
 		try {

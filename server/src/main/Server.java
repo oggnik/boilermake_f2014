@@ -58,4 +58,12 @@ public class Server extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Remove a client
+	 * @param client
+	 */
+	public void removeClient(Client client) {
+		clients.remove(client);
+	}
 }
