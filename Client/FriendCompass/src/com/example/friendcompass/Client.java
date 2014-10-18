@@ -28,6 +28,22 @@ public class Client extends Thread {
 			System.out.println(e);
 			e.printStackTrace();
 		}
+		
+		// Start reading from the client
+		String inputLine = null;
+		while (in.hasNextLine()) {
+			inputLine = in.nextLine();
+			handleMessage(inputLine);
+		}
+	}
+	
+	/**
+	 * Handle a message
+	 * @param message
+	 */
+	private void handleMessage(String message) {
+		// Display the message
+		
 	}
 	
 	/**
