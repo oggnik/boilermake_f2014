@@ -12,6 +12,8 @@ public class Client extends Thread {
 	private PrintWriter out = null;
 	private Scanner in = null;
 	
+	private LocatorSession locatorSession = null;
+	
 	public Client(Server s, Socket sock) {
 		server = s;
 		socket = sock;
@@ -28,7 +30,7 @@ public class Client extends Thread {
 			System.out.println(e);
 			e.printStackTrace();
 		}
-		
+		server.addClient(this);
 		try {
 			// Start reading from the client
 			String inputLine = null;
@@ -47,8 +49,13 @@ public class Client extends Thread {
 	 * @param message
 	 */
 	private void handleMessage(String message) {
-		System.out.println(message);
-		out.println("Message received.");
+		if (locatorSession != null) {
+			String[] parts = message.split(",");
+			double[] location = new double[2];
+			location[0] = Double.parseDouble(parts[0]);
+			location[1] = Double.parseDouble(parts[1]);
+			locatorSession.updateLocation(this, location);
+		}
 	}
 	
 	/**
@@ -57,6 +64,14 @@ public class Client extends Thread {
 	 */
 	public void sendMessage(String message) {
 		out.println(message);
+	}
+	
+	/**
+	 * Set a locator session
+	 * @param loc
+	 */
+	public void setLocatorSession(LocatorSession loc) {
+		locatorSession = loc;
 	}
 	
 	/**

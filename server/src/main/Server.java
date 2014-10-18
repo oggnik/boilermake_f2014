@@ -7,10 +7,12 @@ import java.util.ArrayList;
 public class Server extends Thread {
 	private ServerSocket serverSocket = null;
 	private ArrayList<Client> clients;
+	private ArrayList<Client> availableClients;
 	private boolean listening = false;
 	
 	public Server() {
 		clients = new ArrayList<Client>();
+		availableClients = new ArrayList<Client>();
 	}
 	
 	/**
@@ -44,6 +46,23 @@ public class Server extends Thread {
 	}
 	
 	/**
+	 * Add a client
+	 * @param client
+	 */
+	public void addClient(Client client) {
+		clients.add(client);
+		availableClients.add(client);
+		
+		if (availableClients.size() == 2) {
+			Client client1 = availableClients.remove(0);
+			Client client2 = availableClients.remove(0);
+			LocatorSession locSes = new LocatorSession(client1, client2);
+			client1.setLocatorSession(locSes);
+			client2.setLocatorSession(locSes);
+		}
+	}
+	
+	/**
 	 * Stop the server and sever any connections
 	 */
 	public void stopServer() {
@@ -64,5 +83,6 @@ public class Server extends Thread {
 	 */
 	public void removeClient(Client client) {
 		clients.remove(client);
+		availableClients.remove(client);
 	}
 }
