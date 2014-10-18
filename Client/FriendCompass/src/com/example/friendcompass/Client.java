@@ -62,7 +62,9 @@ public class Client extends Thread {
 	 * @param message
 	 */
 	public void sendMessage(String message) {
-		out.println(message);
+		if (out != null) {
+			out.println(message);
+		}
 	}
 	
 	/**
