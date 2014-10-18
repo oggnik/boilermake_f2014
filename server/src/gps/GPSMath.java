@@ -2,7 +2,6 @@ package gps;
 
 public class GPSMath {
 	private double[] location1, location2, unit;
-	// private double bearing1, bearing2;
 	
 	public GPSMath() {
 		location1 = new double[2];
@@ -46,7 +45,7 @@ public class GPSMath {
 		return d;
 	}
 	
-	public double[] hat(double[] vector){
+	public double[] hat(double[] vector){ //Normalize a vector
 		double[] unitvec = new double[2];
 		double mag;
 		mag = Math.sqrt(Math.pow(vector[0], 2.0) + Math.pow(vector[1], 2.0));
@@ -59,12 +58,7 @@ public class GPSMath {
 		double dot;
 		a = hat(a);
 		b = hat(b);
-		//System.out.println("a "+a[0]+", "+a[1]+" b "+b[0]+", "+b[1]);
-		dot = a[0]*b[0]+a[1]*b[1];
-		//L1 = Math.sqrt(Math.pow(a[0], 2.0)+Math.pow(a[1], 2.0));
-		//L2 = Math.sqrt(Math.pow(b[0], 2.0)+Math.pow(b[1], 2.0));
-		//System.out.println(L1+"  "+L2);
-		//product = dot / L1 / L2;
+		dot = a[0]*b[0]+a[1]*b[1]; //already unit vectors
 		return Math.toDegrees(Math.acos(dot));
 	}
 	
@@ -89,8 +83,6 @@ public class GPSMath {
 		int Lodir, Rdir; //direction of Longitude1 and R
 		Lodir = (int) (location1[1]/Math.abs(location1[1]));
 		Rdir = (int) (R1[1]/ Math.abs(R1[1]));
-			//System.out.println("Lodir 1: "+ Lodir); //debugging
-			//System.out.println("Rdir 1: "+ Rdir ); //debugging
 		orientation = dotAngle(unit, R1);
 		if(location1[1]>0){
 			if(Lodir == Rdir ){
