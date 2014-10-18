@@ -17,7 +17,8 @@ public class LocatorSession {
 	 * @param location
 	 */
 	public void updateLocation(Client c, double[] location) {
-		System.out.println("Location received from client");
+		System.out.println("Location received from client: " + c);
+		System.out.println("\t" + location[0] + ", " + location[1]);
 		// Calculate distance + angle for each client
 		client1.sendMessage("hullo");
 		client2.sendMessage("hmm");
