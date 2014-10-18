@@ -15,8 +15,10 @@ public class CallActivity extends Activity {
     
     protected void onResume(){
     	super.onResume();
-    	client = new Client(this);
-        client.start();
+    	if (client == null || !client.isConnected()) {
+    		client = new Client(this);
+    		client.start();
+    	}
     	client.sendMessage("hi");
     }
 

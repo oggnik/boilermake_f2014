@@ -12,6 +12,8 @@ public class Client extends Thread {
 	private PrintWriter out = null;
 	private Scanner in = null;
 	
+	private boolean connected;
+	
 	public Client(CallActivity cActivity) {
 		this.cActivity = cActivity;
 		try {
@@ -21,6 +23,7 @@ public class Client extends Thread {
 			in = new Scanner(socket.getInputStream());
 			System.out.println(socket);
 			System.out.println("got here 2");
+			connected = true;
 		} catch (IOException e) {
 			System.out.println(e);
 			e.printStackTrace();
@@ -37,6 +40,7 @@ public class Client extends Thread {
 			inputLine = in.nextLine();
 			handleMessage(inputLine);
 		}
+		connected = false;
 	}
 	
 	/**
@@ -74,5 +78,13 @@ public class Client extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Are we connected?
+	 * @return
+	 */
+	public boolean isConnected() {
+		return connected;
 	}
 }
