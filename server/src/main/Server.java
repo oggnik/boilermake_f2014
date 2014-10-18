@@ -93,7 +93,7 @@ public class Server extends Thread {
 	public void removeClient(Client client) {
 		clients.remove(client);
 		availableClients.remove(client);
-		System.out.println("Client remove.");
+		System.out.println("Client remove: " + client);
 		System.out.println("\tTotal clients: " + clients.size());
 		System.out.println("\tAvailable clients: " + availableClients.size());
 		System.out.println("\tSessions: " + sessions.size());
