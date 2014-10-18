@@ -83,7 +83,7 @@ public class Server extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.exit(1);
+		System.exit(0);
 	}
 	
 	/**
