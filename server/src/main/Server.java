@@ -135,7 +135,7 @@ public class Server extends Thread {
 		}
 		System.out.println("Sessions: " + sessions.size());
 		for (LocatorSession s : sessions) {
-			
+			System.out.println("\t" + s);
 		}
 		System.out.println("-------------------------");
 	}
