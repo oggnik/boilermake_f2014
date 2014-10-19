@@ -103,6 +103,9 @@ public class Client extends Thread {
 	}
 	
 	public String toString() {
+		if (socket == null) {
+			return "Client " + socket;
+		}
 		return "Client " + socket.getRemoteSocketAddress();
 	}
 }
