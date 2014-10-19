@@ -2,6 +2,10 @@ package com.example.friendcompass;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,13 +13,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 
-public class CallActivity extends Activity {
+public class CallActivity extends Activity implements SensorEventListener {
 	private Client client;
-	private double angletonorth;
+	private double angletonorth = 0.0;
+	private double rotation = 0.0;
 	double orientation;
 	public ImageView image;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	private SensorManager mSensorManager;
+	private Sensor accelerometer;
+	private Sensor magnetometer;
 	
 	public double getAngletonorth() {
 		return angletonorth;
@@ -33,6 +41,10 @@ public class CallActivity extends Activity {
 		return orientation;
 	}
 
+	public double getRotation(){
+		return rotation;
+	}
+	
 	public void setOrientation(double orientation) {
 		this.orientation = orientation;
 	}
@@ -51,13 +63,6 @@ public class CallActivity extends Activity {
     		client = new Client(this);
     		client.start();
     	}
-    	try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	client.sendMessage("100,30");
     	
     	// Acquire a reference to the system Location Manager
     	locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
@@ -105,5 +110,36 @@ public class CallActivity extends Activity {
     	locationManager.removeUpdates(locationListener);
     	System.out.println("close");
     }
+    
+    public void onSensorChanged(SensorEvent event) {
+		float[] mGravity = null;
+		float[] mGeomagnetic = null;
+	    if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
+	        mGravity = event.values;
+
+	    if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
+	        mGeomagnetic = event.values;
+
+	    if (mGravity != null && mGeomagnetic != null) {
+	        float R[] = new float[9];
+	        float I[] = new float[9];
+
+	        if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic)) {
+
+	            // orientation contains azimut, pitch and roll
+	            float orientation[] = new float[3];
+	            SensorManager.getOrientation(R, orientation);
+
+	            float azimut = orientation[0];
+	            rotation = -azimut * 360 / (2 * 3.1415926535);
+	        }
+	    }
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }
