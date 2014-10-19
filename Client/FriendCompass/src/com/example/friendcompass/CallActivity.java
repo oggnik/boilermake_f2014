@@ -136,7 +136,7 @@ public class CallActivity extends Activity implements SensorEventListener {
 	    	float azimuth = event.values[0];
 	    	rotation = azimuth;
             System.out.println(rotation);
-            runOnUiThread(new UIUpdater(this, distance + "," + trueAngleToNorth));
+            runOnUiThread(new UIUpdater(this, distance + "_o," + trueAngleToNorth));
 	    }
 	}
 
