@@ -129,7 +129,7 @@ public class Server extends Thread {
 		for (Client c : clients) {
 			System.out.println("\t" + c);
 		}
-		System.out.println("Connected Clients: " + availableClients.size());
+		System.out.println("Available Clients: " + availableClients.size());
 		for (Client c : availableClients) {
 			System.out.println("\t" + c);
 		}
