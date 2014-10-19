@@ -127,7 +127,7 @@ public class CallActivity extends Activity implements SensorEventListener {
 		System.out.println(event.sensor.getType() == Sensor.TYPE_ORIENTATION);
 	    if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
 	    	float azimuth = event.values[0];
-	    	rotation = Math.toDegrees(azimuth);
+	    	rotation = azimuth;
             System.out.println(rotation);
 //	        float R[] = new float[9];
 //	        float I[] = new float[9];
