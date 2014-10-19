@@ -118,6 +118,7 @@ public class CallActivity extends Activity implements SensorEventListener {
     }
     
     public void onSensorChanged(SensorEvent event) {
+    	System.out.println("sensor changed");
 		float[] mGravity = null;
 		float[] mGeomagnetic = null;
 	    if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
@@ -125,7 +126,9 @@ public class CallActivity extends Activity implements SensorEventListener {
 
 	    if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
 	        mGeomagnetic = event.values;
-
+	    
+	    System.out.println(mGravity);
+	    System.out.println(mGeomagnetic);
 	    if (mGravity != null && mGeomagnetic != null) {
 	        float R[] = new float[9];
 	        float I[] = new float[9];
@@ -137,7 +140,8 @@ public class CallActivity extends Activity implements SensorEventListener {
 	            SensorManager.getOrientation(R, orientation);
 
 	            float azimut = orientation[0];
-	            rotation = -azimut * 360 / (2 * 3.1415926535);
+	            rotation = Math.toDegrees(azimut);
+	            System.out.println(rotation);
 	        }
 	    }
 	}
