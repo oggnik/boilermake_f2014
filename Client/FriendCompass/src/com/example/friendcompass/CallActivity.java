@@ -5,7 +5,6 @@ import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -26,8 +25,6 @@ public class CallActivity extends Activity implements SensorEventListener {
 	private LocationManager locationManager;
 	private LocationListener locationListener;
 	private SensorManager mSensorManager;
-	private Sensor accelerometer;
-	private Sensor magnetometer;
 	private Sensor compass;
 	
 	public double getModifiedAngleToNorth() {
@@ -73,15 +70,12 @@ public class CallActivity extends Activity implements SensorEventListener {
         image = (ImageView) findViewById(R.id.imageView1);
         setModifiedAngleToNorth((float) 0);
         mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         compass = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }
     
     protected void onResume(){
     	super.onResume();
     	mSensorManager.registerListener(this, compass, SensorManager.SENSOR_DELAY_GAME);
-        //mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
     	if (client == null || !client.isConnected()) {
     		client = new Client(this);
     		client.start();
