@@ -15,6 +15,7 @@ public class UIUpdater implements Runnable{
 		message = mes;
 		String[] parts = mes.split(",");
 		distance = Double.parseDouble(parts[0]);
+		cAct.setDistance(distance);
 		double trueAngle = Double.parseDouble(parts[1]);
 		cAct.setTrueAngleToNorth(trueAngle);
 		angle = (trueAngle - cActivity.getRotation() + 360) % 360;
