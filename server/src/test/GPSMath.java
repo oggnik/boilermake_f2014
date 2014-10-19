@@ -111,8 +111,6 @@ public class GPSMath {
 		int Lodir, Rdir; //direction of Longitude1 and R
 		Lodir = (int) (location2[1]/Math.abs(location2[1]));
 		Rdir = (int) (R2[1]/ Math.abs(R2[1]));
-			//System.out.println("Lodir 1: "+ Lodir); //debugging
-			//System.out.println("Rdir 1: "+ Rdir ); //debugging
 		orientation = dotAngle(unit, R2);
 		if (location2[1]>0){
 			if(Lodir == Rdir ){
