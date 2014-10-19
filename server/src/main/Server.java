@@ -110,9 +110,33 @@ public class Server extends Thread {
 		}
 	}
 	
+	/**
+	 * Remove a locator session
+	 * @param locSes
+	 */
 	public void removeLocatorSession(LocatorSession locSes) {
 		System.out.println("Session removed");
 		sessions.remove(locSes);
 		System.out.println("\tSessions: " + sessions.size());
+	}
+	
+	/**
+	 * Print the state of the server
+	 */
+	public void print() {
+		System.out.println("------Server Status------");
+		System.out.println("Connected Clients: " + clients.size());
+		for (Client c : clients) {
+			System.out.println("\t" + c);
+		}
+		System.out.println("Available Clients: " + availableClients.size());
+		for (Client c : availableClients) {
+			System.out.println("\t" + c);
+		}
+		System.out.println("Sessions: " + sessions.size());
+		for (LocatorSession s : sessions) {
+			
+		}
+		System.out.println("-------------------------");
 	}
 }

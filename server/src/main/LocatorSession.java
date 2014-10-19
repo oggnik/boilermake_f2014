@@ -47,4 +47,11 @@ public class LocatorSession {
 		client2.setLocatorSession(null);
 		server.removeLocatorSession(this);
 	}
+	
+	/**
+	 * toString
+	 */
+	public String toString() {
+		return "Session: [" + client1 + ", " + client2 + "]";
+	}
 }
