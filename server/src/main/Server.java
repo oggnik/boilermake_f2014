@@ -93,7 +93,7 @@ public class Server extends Thread {
 	public void addClientToAvailable(Client client) {
 		if (!availableClients.contains(client) && clients.contains(client)) {
 			availableClients.add(client);
-			System.out.println("Client added.");
+			System.out.println("Available Client added: " + client);
 			System.out.println("\tTotal clients: " + clients.size());
 			System.out.println("\tAvailable clients: " + availableClients.size());
 			System.out.println("\tSessions: " + sessions.size());
