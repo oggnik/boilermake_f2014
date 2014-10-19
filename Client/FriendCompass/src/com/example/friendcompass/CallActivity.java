@@ -55,10 +55,15 @@ public class CallActivity extends Activity implements SensorEventListener {
         setContentView(R.layout.activity_call);
         image = (ImageView) findViewById(R.id.imageView1);
         setAngletonorth((float) 0);
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }
     
     protected void onResume(){
     	super.onResume();
+    	mSensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
     	if (client == null || !client.isConnected()) {
     		client = new Client(this);
     		client.start();
@@ -106,6 +111,7 @@ public class CallActivity extends Activity implements SensorEventListener {
     
     protected void onPause(){
     	super.onPause();
+    	mSensorManager.unregisterListener(this);
     	client.closeSocket();
     	locationManager.removeUpdates(locationListener);
     	System.out.println("close");
