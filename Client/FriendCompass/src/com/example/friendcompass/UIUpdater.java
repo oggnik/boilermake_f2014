@@ -7,15 +7,13 @@ import android.widget.TextView;
 public class UIUpdater implements Runnable{
 	private String message;
 	private CallActivity cActivity;
-	private double distance;
 	private double angle;
 	
 	public UIUpdater(CallActivity cAct, String mes) {
 		cActivity = cAct;
 		message = mes;
 		String[] parts = mes.split(",");
-		distance = Double.parseDouble(parts[0]);
-		cAct.setDistance(distance);
+		cAct.setDistance(Double.parseDouble(parts[0]));
 		double trueAngle = Double.parseDouble(parts[1]);
 		cAct.setTrueAngleToNorth(trueAngle);
 		angle = (trueAngle - cActivity.getRotation() + 360) % 360;
@@ -32,14 +30,6 @@ public class UIUpdater implements Runnable{
 		cActivity.setModifiedAngleToNorth((float) angle);
 		r.setRepeatCount(RotateAnimation.INFINITE);
 		cActivity.getImageView().startAnimation(r);
-		
-		/*Matrix matrix=new Matrix();
-		cActivity.getImageView().setScaleType(ScaleType.MATRIX);   //required
-		matrix.postRotate((float) cActivity.getAngletonorth() + 10, 
-				cActivity.getImageView().getDrawable().getBounds().width()/2, 
-				cActivity.getImageView().getDrawable().getBounds().height()/2);
-		cActivity.getImageView().setImageMatrix(matrix);
-		cActivity.setAngletonorth(cActivity.getAngletonorth() + 10);*/
 		
 	}
 	
