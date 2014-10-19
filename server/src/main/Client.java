@@ -14,6 +14,8 @@ public class Client extends Thread {
 	
 	private LocatorSession locatorSession = null;
 	
+	private boolean connected;
+	
 	public Client(Server s, Socket sock) {
 		server = s;
 		socket = sock;
@@ -30,6 +32,7 @@ public class Client extends Thread {
 			System.out.println(e);
 			e.printStackTrace();
 		}
+		connected = true;
 		server.addClient(this);
 		try {
 			// Start reading from the client
@@ -72,7 +75,7 @@ public class Client extends Thread {
 	 */
 	public void setLocatorSession(LocatorSession loc) {
 		locatorSession = loc;
-		if (loc == null) {
+		if (loc == null && connected) {
 			server.addClientToAvailable(this);
 		}
 	}
@@ -81,6 +84,7 @@ public class Client extends Thread {
 	 * Close down communication
 	 */
 	public void closeSocket() {
+		connected = false;
 		if (locatorSession != null) {
 			locatorSession.disconnect(this);
 		}
@@ -103,6 +107,9 @@ public class Client extends Thread {
 	}
 	
 	public String toString() {
+		if (socket == null) {
+			return "Client " + socket;
+		}
 		return "Client " + socket.getRemoteSocketAddress();
 	}
 }

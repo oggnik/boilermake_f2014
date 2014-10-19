@@ -2,6 +2,11 @@ package com.example.friendcompass;
 
 import android.app.Activity;
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -9,13 +14,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
 
-public class CallActivity extends Activity {
+public class CallActivity extends Activity implements SensorEventListener {
 	private Client client;
-	private double angletonorth;
+	private double angletonorth = 0.0;
+	private double rotation = 0.0;
 	double orientation;
 	public ImageView image;
 	private LocationManager locationManager;
 	private LocationListener locationListener;
+	private SensorManager mSensorManager;
+	private Sensor accelerometer;
+	private Sensor magnetometer;
+	private Sensor compass;
 	
 	public double getAngletonorth() {
 		return angletonorth;
@@ -33,6 +43,10 @@ public class CallActivity extends Activity {
 		return orientation;
 	}
 
+	public double getRotation(){
+		return rotation;
+	}
+	
 	public void setOrientation(double orientation) {
 		this.orientation = orientation;
 	}
@@ -43,21 +57,20 @@ public class CallActivity extends Activity {
         setContentView(R.layout.activity_call);
         image = (ImageView) findViewById(R.id.imageView1);
         setAngletonorth((float) 0);
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        compass = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }
     
     protected void onResume(){
     	super.onResume();
+    	mSensorManager.registerListener(this, compass, SensorManager.SENSOR_DELAY_NORMAL);
+        //mSensorManager.registerListener(this, magnetometer, SensorManager.SENSOR_DELAY_UI);
     	if (client == null || !client.isConnected()) {
     		client = new Client(this);
     		client.start();
     	}
-    	try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	client.sendMessage("100,30");
     	
     	// Acquire a reference to the system Location Manager
     	locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
@@ -101,9 +114,41 @@ public class CallActivity extends Activity {
     
     protected void onPause(){
     	super.onPause();
+    	mSensorManager.unregisterListener(this);
     	client.closeSocket();
     	locationManager.removeUpdates(locationListener);
     	System.out.println("close");
     }
+    
+    public void onSensorChanged(SensorEvent event) {
+    	System.out.println("sensor changed");
+		float[] mGravity = null;
+		float[] mGeomagnetic = null;
+		System.out.println(event.sensor.getType() == Sensor.TYPE_ORIENTATION);
+	    if (event.sensor.getType() == Sensor.TYPE_ORIENTATION) {
+	    	float azimuth = event.values[0];
+	    	rotation = azimuth;
+            System.out.println(rotation);
+//	        float R[] = new float[9];
+//	        float I[] = new float[9];
+//
+//	        if (SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic)) {
+//
+//	            // orientation contains azimut, pitch and roll
+//	            float orientation[] = new float[3];
+//	            SensorManager.getOrientation(R, orientation);
+//
+//	            float azimut = orientation[0];
+//	            rotation = Math.toDegrees(azimut);
+//	            System.out.println(rotation);
+//	        }
+	    }
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

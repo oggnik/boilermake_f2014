@@ -9,9 +9,12 @@ public class Main {
 		server.start();
 		Scanner input = new Scanner(System.in);
 		while (input.hasNext()) {
-			if (input.next().equalsIgnoreCase("stop")) {
+			String command = input.next();
+			if (command.equalsIgnoreCase("stop")) {
 				server.stopServer();
 				break;
+			} else if (command.equalsIgnoreCase("print")) {
+				server.print();
 			}
 		}
 	}

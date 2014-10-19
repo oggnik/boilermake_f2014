@@ -1,4 +1,4 @@
-package test;
+package gps;
 
 public class GPSMath {
 	private double[] location1, location2, unit;

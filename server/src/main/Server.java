@@ -53,21 +53,7 @@ public class Server extends Thread {
 	 */
 	public void addClient(Client client) {
 		clients.add(client);
-		availableClients.add(client);
-		System.out.println("Client added.");
-		System.out.println("\tTotal clients: " + clients.size());
-		System.out.println("\tAvailable clients: " + availableClients.size());
-		System.out.println("\tSessions: " + sessions.size());
-		
-		if (availableClients.size() == 2) {
-			System.out.println("Starting session");
-			Client client1 = availableClients.remove(0);
-			Client client2 = availableClients.remove(0);
-			LocatorSession locSes = new LocatorSession(this, client1, client2);
-			client1.setLocatorSession(locSes);
-			client2.setLocatorSession(locSes);
-			sessions.add(locSes);
-		}
+		addClientToAvailable(client);
 	}
 	
 	/**
@@ -107,10 +93,59 @@ public class Server extends Thread {
 	public void addClientToAvailable(Client client) {
 		if (!availableClients.contains(client) && clients.contains(client)) {
 			availableClients.add(client);
+			System.out.println("Available Client added: " + client);
+			System.out.println("\tTotal clients: " + clients.size());
+			System.out.println("\tAvailable clients: " + availableClients.size());
+			System.out.println("\tSessions: " + sessions.size());
+			
+			if (availableClients.size() == 2) {
+				System.out.println("Starting session");
+				Client client1 = availableClients.remove(0);
+				Client client2 = availableClients.remove(0);
+				if (client1 == null || client2 == null) {
+					if (client1 != null) {
+						availableClients.add(client1);
+					}
+					if (client2 != null) {
+						availableClients.add(client2);
+					}
+					return;
+				}
+				LocatorSession locSes = new LocatorSession(this, client1, client2);
+				client1.setLocatorSession(locSes);
+				client2.setLocatorSession(locSes);
+				sessions.add(locSes);
+			}
 		}
 	}
 	
+	/**
+	 * Remove a locator session
+	 * @param locSes
+	 */
 	public void removeLocatorSession(LocatorSession locSes) {
+		System.out.println("Session removed");
 		sessions.remove(locSes);
+		System.out.println("\tSessions: " + sessions.size());
+	}
+	
+	/**
+	 * Print the state of the server
+	 */
+	public void print() {
+		System.out.println("------Server Status------");
+		System.out.println("Connected Clients: " + clients.size());
+		for (Client c : clients) {
+			System.out.println("\t" + c);
+		}
+		System.out.println("Available Clients: " + availableClients.size());
+		for (Client c : availableClients) {
+			System.out.println("\t" + c);
+		}
+		System.out.println("Sessions: " + sessions.size());
+		for (LocatorSession s : sessions) {
+			System.out.println("\t" + s);
+		}
+		System.out.println("-------------------------");
 	}
 }
